@@ -12,7 +12,7 @@
                 enable = true;
                 device = "nodev";
                 efiSupport = true;
-                userOSProber = true;
+                useOSProber = true;
             };
             efi.canTouchEfiVariables = true;
         };
@@ -21,7 +21,6 @@
     # Networking section:
     networking = {
         hostName = "RyoYamada";
-        wireless.enable = true;
         networkmanager.enable = true;
     };
 
@@ -66,6 +65,7 @@
     };
 
     # User account section:
+    programs.zsh.enable = true;
     users = {
         defaultUserShell = pkgs.zsh;
         users.aletschfirn = { # Change aletschfirn to your nickname
@@ -77,26 +77,18 @@
 
     # Security section:
     security = {
+	      polkit.enable = true;
         doas = {
             enable = true;
-            extraRules.aletschfirn.persist = true;
         };
     };
 
-    # XServer section:
-    services.xserver = {
-        enable = true;
-        xkb = {
-            layout = "us";
-            variant = "";
-        };
-        displayManager = { startx.enable = true; };
-    };
+   # Hyprland modules section:
+   programs.hyprland.enable = true;
 
     # NVidia section:
-    hardware.graphics = {
+    hardware.opengl = {
         enable = true;
-        enable32Bit = true;
     };
     services.xserver.videoDrivers = ["nvidia"];
     hardware.nvidia = {
@@ -116,24 +108,35 @@
 
     # Stylix section:
     stylix = {
-        enable = true;
-        homeManagerIntegration = {
+	    enable = true;
+      autoEnable = false;
+	    image = pkgs.fetchurl {
+        url = "https://github.com/dharmx/walls/blob/main/digital/a_foggy_mountain_with_trees.jpg";
+        sha256 = "14dwaqv26dwhjsnbvscjlnsrrdw9rx6fqgrhfxhbr49rvalv79kx";
+      };  
+      homeManagerIntegration = {
             autoImport = true;
             followSystem = true;
-        };
-        base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
-        cursor = {
-            package = pkgs.nordzy-cursor-theme;
-            name = "Nordzy-cursors";
-            size = 24;
-        };
-        fonts = {
-            serif = {
-              package = pkgs.jetbrains-mono;
-              name = "JetBrains Mono";
-            };
+      };
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
 
-            sansSerif = {
+      targets = {
+        console.enable = true;
+        grub.enable = true;
+        gtk.enable = true; 
+      };
+    
+      cursor = {
+        package = pkgs.nordzy-cursor-theme;
+        name = "Nordzy-cursors";
+        size = 24;
+      };
+      fonts = {
+        serif = {
+          package = pkgs.jetbrains-mono;
+          name = "JetBrains Mono";
+        };
+        sansSerif = {
               package = pkgs.jetbrains-mono;
               name = "JetBrains Mono";
             };

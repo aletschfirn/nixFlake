@@ -16,19 +16,19 @@
     nixosConfigurations.RyoYamada = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [ 
-        ./configuration.nix 
+        ./configuration.nix
+
+ 	home-manager.nixosModules.home-manager 
+	{
+	  home-manager = {
+	    backupFileExtension = "backup";
+	    useUserPackages = true;
+	    users.aletschfirn = import ./home.nix;
+	  };
+	}
+ 
         stylix.nixosModules.stylix
       ];
-    };
-
-    homeConfigurations = {
-      "aletschfirn" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
-        modules = [ 
-          ./home.nix
-          stylix.homeManagerModules.stylix
-        ]; 
-      };
     };
   };
 }

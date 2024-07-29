@@ -1,4 +1,9 @@
 { config, pkgs, ...}: {
+
+    imports = [
+        ./hyprland.nix
+    ];
+    
     # Initialization section:
     home = {
         username = "aletschfirn";
@@ -7,14 +12,17 @@
     };
 
     # WM section:
-    xsession.windowManager = {
-        i3 = {
-            enable = true;
-        };
+    wayland.windowManager.hyprland = {
+      enable = true;
+      xwayland.enable = true;
     };
 
     # Programs section:
     programs = {
+
+        # Home-Manager section:
+        home-manager.enable = true;
+
         # zsh section:
         zsh = {
             enable = true;
@@ -90,7 +98,6 @@
         helix = {
             enable = true;
             settings = {
-                theme = "nord";
                 editor.lsp.display-messages = true;
             };
         };
@@ -104,9 +111,6 @@
         };
         btop = {
             enable = true;
-            settings = {
-                color_theme = "Nord";
-            };
         };
     };
 
@@ -116,8 +120,6 @@
         # Mako section:
         mako = {
             enable = true;
-            backgroundColor = "#434C5EFF";
-            textColor = "#ECEFF4FF";
             borderRadius = 10;
             borderSize = 0;
             margin = "25";
@@ -134,9 +136,30 @@
 
     # Stylix section:
     stylix = {
-        image = ;
+    	enable = true;
+	    autoEnable = false;
+        image = pkgs.fetchurl {
+             url = "https://github.com/dharmx/walls/blob/main/digital/a_foggy_mountain_with_trees.jpg";
+             sha256 = "14dwaqv26dwhjsnbvscjlnsrrdw9rx6fqgrhfxhbr49rvalv79kx";
+        };
         base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
         opacity.terminal = 0.75;
+        targets = {
+            alacritty.enable = true;
+            btop.enable = true;
+            firefox.enable = true;
+            firefox.profileNames = [ "x43zx51j" ];
+            gtk.enable = true;
+            gtk.extraCss =
+            ''
+              window.background { border-radius: 10px; } 
+            '';
+            helix.enable = true;
+            hyprland.enable = true;
+            hyprpaper.enable = true;
+            mako.enable = true;
+            tmux.enable = true;
+        };
         cursor = {
             package = pkgs.nordzy-cursor-theme;
             name = "Nordzy-cursors";
