@@ -6,6 +6,13 @@
         stateVersion = "24.11";
     };
 
+    # WM section:
+    xsession.windowManager = {
+        i3 = {
+            enable = true;
+        };
+    };
+
     # Programs section:
     programs = {
         # zsh section:
@@ -21,6 +28,18 @@
                 enable = true;
                 theme = "apple";
             };
+        };
+
+        # FireFox section:
+        firefox = {
+            enable = true;
+        };
+
+        # TMux section:
+        tmux = {
+            enable = true;
+            mouse = true;
+            clock24 = true;
         };
 
         # alacritty section:

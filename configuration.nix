@@ -83,6 +83,16 @@
         };
     };
 
+    # XServer section:
+    services.xserver = {
+        enable = true;
+        xkb = {
+            layout = "us";
+            variant = "";
+        };
+        displayManager = { startx.enable = true; };
+    };
+
     # NVidia section:
     hardware.graphics = {
         enable = true;
