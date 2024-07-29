@@ -14,7 +14,7 @@
                 efiSupport = true;
                 userOSProber = true;
             };
-            efi.canTouchEfiVariable = true;
+            efi.canTouchEfiVariables = true;
         };
     };
 
