@@ -68,7 +68,7 @@
     # User account section:
     users = {
         defaultUserShell = pkgs.zsh;
-        users.aletschfirn { # Change aletschfirn to your nickname
+        users.aletschfirn = { # Change aletschfirn to your nickname
             isNormalUser = true;
             extraGroups = [ "wheel" ];
         };
